@@ -1,0 +1,27 @@
+{
+    "name": "thanosKontos/greek-validators-symfony",
+    "type": "library",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/thanosKontos/greek-validators-symfony"
+        }
+    ],
+    "require": {
+        "symfony/validator": "^4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "SymfonyGreekValidation\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SymfonyGreekValidation\\": "tests/"
+        }
+    }
+}
