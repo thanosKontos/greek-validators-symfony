@@ -38,6 +38,8 @@ class AmkaTest extends TestCase
     public function validAmkaProvider()
     {
         return [
+            [''],
+            [null],
             ['10128702759'],
             ['15098801044'],
             ['23048800603'],

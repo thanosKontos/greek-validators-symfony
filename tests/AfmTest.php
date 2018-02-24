@@ -38,6 +38,8 @@ class AfmTest extends TestCase
     public function validAfmProvider()
     {
         return [
+            [''],
+            [null],
             ['094075243'],
             ['094079531'],
             ['997364193'],
@@ -52,8 +54,6 @@ class AfmTest extends TestCase
         return [
             ['026051931'],
             ['aaaa'],
-            [''],
-            [null]
         ];
     }
 }

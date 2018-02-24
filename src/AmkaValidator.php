@@ -9,6 +9,10 @@ class AmkaValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
+        if (empty($value)) {
+            return true;
+        }
+
         if (!preg_match('/^[0-9]{11}$/', $value) || $value === '00000000000') {
             $this->buildViolation($value, $constraint);
 

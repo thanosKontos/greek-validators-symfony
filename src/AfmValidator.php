@@ -9,6 +9,10 @@ class AfmValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
+        if (empty($value)) {
+            return true;
+        }
+
         if (!is_numeric($value)) {
             $this->buildViolation($value, $constraint);
 
