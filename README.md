@@ -2,6 +2,12 @@
 
 Validations for Αμκα number, αφμ number etc for symfony validator.
 
+At the moment the following validators are available:
+
+* Αφμ
+* Αμκα
+* Κ.Α.Δ
+
 ## Release notes
 
 There is one and only release: 0.1
