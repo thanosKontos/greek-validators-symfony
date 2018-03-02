@@ -19,16 +19,12 @@ class AfmValidator extends ConstraintValidator
             return false;
         }
 
-        $reverseAfm   = array_reverse(str_split($value));
-        $first = (int) array_shift($reverseAfm);
-        $sum = 0;
+        $reverseAfm = array_reverse(str_split($value));
+        $lastDigit = (int) array_shift($reverseAfm);
+        $checksum = $this->calculateChecksum($reverseAfm);
+        $mod = $checksum % 11;
 
-        foreach ($reverseAfm as $index => $value) {
-            $sum += $value * pow(2, ++$index);
-        }
-
-        $mod = $sum % 11;
-        if ((10 === $mod && $first === 0) || ($mod === $first)) {
+        if ($this->checkModAgainstLastDigit($mod, $lastDigit)) {
             return true;
         }
 
@@ -37,12 +33,22 @@ class AfmValidator extends ConstraintValidator
         return false;
     }
 
-    private function isOdd($index)
+    private function checkModAgainstLastDigit($mod, $lastDigit): bool
     {
-        return $index % 2 === 1;
+        return (10 === $mod && $lastDigit === 0) || ($mod === $lastDigit);
     }
 
-    private function buildViolation($value, $constraint)
+    private function calculateChecksum($reverseAfm): int
+    {
+        $checksum = 0;
+        foreach ($reverseAfm as $index => $value) {
+            $checksum += $value * pow(2, ++$index);
+        }
+
+        return $checksum;
+    }
+
+    private function buildViolation($value, $constraint): void
     {
         $this->context->buildViolation($constraint->message)
             ->setParameter('{{ string }}', $value)

@@ -19,8 +19,21 @@ class AmkaValidator extends ConstraintValidator
             return false;
         }
 
+        $checksum = $this->calculateChecksum($value);
+
+        if ($checksum % 10 !== 0) {
+            $this->buildViolation($value, $constraint);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    private function calculateChecksum(string $amka): int
+    {
         $sum = 0;
-        foreach(str_split($value) as $index => $char) {
+        foreach(str_split($amka) as $index => $char) {
             $tempDigit = intval($char);
             if ($this->isOdd($index)) {
                 $tempDigit *= 2;
@@ -32,21 +45,15 @@ class AmkaValidator extends ConstraintValidator
             $sum += $tempDigit;
         }
 
-        if ($sum % 10 !== 0) {
-            $this->buildViolation($value, $constraint);
-
-            return false;
-        }
-
-        return true;
+        return $sum;
     }
 
-    private function isOdd($index)
+    private function isOdd($index): bool
     {
         return $index % 2 === 1;
     }
 
-    private function buildViolation($value, $constraint)
+    private function buildViolation($value, $constraint): void
     {
         $this->context->buildViolation($constraint->message)
             ->setParameter('{{ string }}', $value)
