@@ -6,3 +6,8 @@ build:
         coverage:
           file: 'build/logs/clover.xml'
           format: 'clover'
+
+checks:
+  php:
+    code_rating: true
+    duplication: true
