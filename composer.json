@@ -1,6 +1,8 @@
 {
     "name": "thanosKontos/greek-validators-symfony",
+    "description": "Validations for Αμκα number, αφμ number etc for symfony validator.",
     "type": "library",
+    "license": "MIT",
     "repositories": [
         {
             "type": "vcs",
