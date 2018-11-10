@@ -4,33 +4,35 @@ namespace SymfonyGreekValidation;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class AfmValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
+        if (!$constraint instanceof Afm) {
+            throw new UnexpectedTypeException($constraint, Afm::class);
+        }
+
         if (empty($value)) {
-            return true;
+            return;
         }
 
         if (!is_numeric($value)) {
             $this->buildViolation($value, $constraint);
-
-            return false;
+            return;
         }
 
         $reverseAfm = array_reverse(str_split($value));
-        $lastDigit = (int) array_shift($reverseAfm);
+        $lastDigit = (int)array_shift($reverseAfm);
         $checksum = $this->calculateChecksum($reverseAfm);
         $mod = $checksum % 11;
 
         if ($this->checkModAgainstLastDigit($mod, $lastDigit)) {
-            return true;
+            return;
         }
 
         $this->buildViolation($value, $constraint);
-
-        return false;
     }
 
     private function checkModAgainstLastDigit($mod, $lastDigit): bool
