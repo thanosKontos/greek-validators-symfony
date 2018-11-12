@@ -1,4 +1,4 @@
-# Greek valiadtions for symfony
+# Greek validations for symfony
 
 [![Build Status](https://scrutinizer-ci.com/g/thanosKontos/greek-validators-symfony/badges/build.png?b=master)](https://scrutinizer-ci.com/g/thanosKontos/greek-validators-symfony/build-status/master)
 [![Code Coverage](https://scrutinizer-ci.com/g/thanosKontos/greek-validators-symfony/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/thanosKontos/greek-validators-symfony/?branch=master)
@@ -8,9 +8,9 @@ Validations for Αμκα number, αφμ number etc for symfony validator.
 
 At the moment the following validators are available:
 
-* Αφμ
-* Αμκα
-* Κ.Α.Δ
+* VAT Number - (ΑΦΜ)
+* Social Insurance Number (Αμκα)
+* Activity Code Number (Κ.Α.Δ)
 
 ## Release notes
 
