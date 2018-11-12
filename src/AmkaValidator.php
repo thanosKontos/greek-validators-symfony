@@ -4,36 +4,37 @@ namespace SymfonyGreekValidation;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class AmkaValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
+        if (!$constraint instanceof Amka) {
+            throw new UnexpectedTypeException($constraint, Amka::class);
+        }
+
         if (empty($value)) {
-            return true;
+            return;
         }
 
         if (!preg_match('/^[0-9]{11}$/', $value) || $value === '00000000000') {
             $this->buildViolation($value, $constraint);
-
-            return false;
+            return;
         }
 
         $checksum = $this->calculateChecksum($value);
 
         if ($checksum % 10 !== 0) {
             $this->buildViolation($value, $constraint);
-
-            return false;
+            return;
         }
-
-        return true;
     }
 
     private function calculateChecksum(string $amka): int
     {
         $sum = 0;
-        foreach(str_split($amka) as $index => $char) {
+        foreach (str_split($amka) as $index => $char) {
             $tempDigit = intval($char);
             if ($this->isOdd($index)) {
                 $tempDigit *= 2;

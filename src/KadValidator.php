@@ -4,13 +4,18 @@ namespace SymfonyGreekValidation;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class KadValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
+        if (!$constraint instanceof Kad) {
+            throw new UnexpectedTypeException($constraint, Kad::class);
+        }
+
         if (empty($value)) {
-            return true;
+            return;
         }
 
         if (!preg_match('/^([0-9]{2}\.){3}[0-9]{2}$/', $value)) {
@@ -18,9 +23,7 @@ class KadValidator extends ConstraintValidator
                 ->setParameter('{{ string }}', $value)
                 ->addViolation();
 
-            return false;
+            return;
         }
-
-        return true;
     }
 }
