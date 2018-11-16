@@ -16,6 +16,11 @@ At the moment the following validators are available:
 
 There is one and only release: 0.1
 
+*Tag 0.2*
+
+* Fixes in readme, composer
+* Validation fixes
+
 ## Instructions
 
 `composer require thanos-kontos/greek-validators-symfony`
